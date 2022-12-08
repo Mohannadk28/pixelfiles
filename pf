@@ -45,8 +45,8 @@ elif [ "$1" == "term" ] ; then
     git clone --recurse-submodules --remote-submodules https://github.com/Mohannadk28/pixelfiles-term "$PFDIR"/pixelfiles-term
 
     # Allow the Setup Script to Execute
-    chmod +x "$PFDIR"/setup-term.sh
+    chmod +x "$PFDIR"/pixelfiles-term/setup-term.sh
 
     # Setting up the Pixelfiles
-    bash "$PFDIR"/setup-term.sh
+    bash "$PFDIR"/pixelfiles-term/setup-term.sh
 fi
