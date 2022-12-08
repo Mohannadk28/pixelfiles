@@ -18,9 +18,9 @@ if [ "$1" == "all" ] ; then
     git clone --recurse-submodules --remote-submodules https://github.com/Mohannadk28/pixelfiles-desktop "$PFDIR"/pixelfiles-desktop
     
     # Allow the Setup Scripts to Execute
-    chmod +x "$PFDIR"/setup-apps.sh
-    chmod +x "$PFDIR"/setup-term.sh
-    chmod +x "$PFDIR"/setup-desktop.sh    
+    chmod +x "$PFDIR"/pixelfiles-apps/setup-apps.sh
+    chmod +x "$PFDIR"/pixelfiles-term/setup-term.sh
+    chmod +x "$PFDIR"/pixelfiles-desktop/setup-desktop.sh    
 
     # Setting up the Pixelfiles
     bash "$PFDIR"/setup-apps.sh
@@ -38,6 +38,7 @@ if [ "$1" == "all" ] ; then
     rm -rf  Nordic-bluish-accent-standard-buttons-v40.tar.xz
 
     # Install the Ubuntu Font
+    mkdir -p "$HOME"/ubuntu-font-temp
     cd "$HOME"/ubuntu-font-temp || return
     wget https://assets.ubuntu.com/v1/0cef8205-ubuntu-font-family-0.83.zip
     unzip ubuntu-font-family-0.83.zip
