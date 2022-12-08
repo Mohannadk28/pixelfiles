@@ -7,7 +7,7 @@ PFDIR="$HOME"/.pixelfiles
 if [ "$1" == "all" ] ; then 
     # Install All Packages
     sudo pacman -Syu
-    sudo pacman -S shotgun hacksaw wget noto-font ttf-ubuntumono-nerd noto-font-cjk noto-font-emoji ttf-ubuntu-font-family unzip awesome polkit-gnome sddm rofi kitty thunar brightnessctl picom volumeicon cbatticon network-manager-applet slock starship exa bat zsh vim firefox android-file-transfer
+    sudo pacman -S shotgun hacksaw wget mpv feh noto-font ttf-ubuntumono-nerd noto-font-cjk noto-font-emoji ttf-ubuntu-font-family unzip awesome polkit-gnome sddm rofi kitty thunar brightnessctl picom volumeicon cbatticon network-manager-applet slock starship exa bat zsh vim firefox android-file-transfer
     
     # Enable sddm
     sudo systemctl enable sddm
