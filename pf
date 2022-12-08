@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# Create the .pixelfiles Directory
+mkdir -p "$HOME"/.pixelfiles
+PFDIR="$HOME"/.pixelfiles
+
+if [ "$1" == "all" ] ; then 
+    # Install All Packages
+    sudo pacman -Syu
+    sudo pacman -S shotgun hacksaw wget unzip awesome sddm rofi kitty thunar brightnessctl volumeicon cbatticon network-manager-applet slock starship exa bat zsh vim firefox android-file-transfer
+    
+    # Enable sddm
+    sudo systemctl enable sddm
+    
+    # Cloning Pixelfiles 
+    git clone --recurse-submodules --remote-submodules https://github.com/Mohannadk28/pixelfiles-apps "$PFDIR"/pixelfiles-apps
+    git clone --recurse-submodules --remote-submodules https://github.com/Mohannadk28/pixelfiles-term "$PFDIR"/pixelfiles-term
+    git clone --recurse-submodules --remote-submodules https://github.com/Mohannadk28/pixelfiles-desktop "$PFDIR"/pixelfiles-desktop
+    
+    # Allow the Setup Scripts to Execute
+    chmod +x "$PFDIR"/setup-apps.sh
+    chmod +x "$PFDIR"/setup-term.sh
+    chmod +x "$PFDIR"/setup-desktop.sh    
+
+    # Setting up the Pixelfiles
+    bash "$PFDIR"/setup-apps.sh
+    bash "$PFDIR"/setup-term.sh
+    bash "$PFDIR"/setupdesktop-.sh
+
+    # Installing the Icon Pack
+    wget -qO- https://git.io/papirus-icon-theme-install | sh
+
+    # Install the Nordic-GTK Theme
+    mkdir -p "$HOME"/.themes
+    cd "$HOME"/.themes || return
+    wget https://github.com/EliverLara/Nordic/releases/download/v2.2.0/Nordic-bluish-accent-standard-buttons-v40.tar.xz
+    tar +xf  Nordic-bluish-accent-standard-buttons-v40.tar.xz
+    rm -rf  Nordic-bluish-accent-standard-buttons-v40.tar.xz
+
+    # Install the Ubuntu Font
+    cd "$HOME"/ubuntu-font-temp || return
+    wget https://assets.ubuntu.com/v1/0cef8205-ubuntu-font-family-0.83.zip
+    unzip ubuntu-font-family-0.83.zip
+    sudo mv "$HOME"/ubuntu-font-temp/ubuntu-font-family-0.83/*.ttf /usr/share/fonts
+    cd "$HOME" || return
+    rm -rf "$HOME"/ubuntu-font-temp
+elif [ "$1" == "term" ] ; then
+    # Install Shell Packages
+    sudo pacman -Syu
+    sudo pacman -S zsh starship exa bat
+    
+    # Clone the Pixelfiles
+    git clone --recurse-submodules --remote-submodules https://github.com/Mohannadk28/pixelfiles-term "$PFDIR"/pixelfiles-term
+
+    # Allow the Setup Script to Execute
+    chmod +x "$PFDIR"/setup-term.sh
+
+    # Setting up the Pixelfiles
+    bash "$PFDIR"/setup-term.sh
+fi
