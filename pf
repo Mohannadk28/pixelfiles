@@ -169,6 +169,8 @@ elif [ "$1" == "credits" ] ; then
   echo " |  | SpaceVim By The SpaceVim Team               : https://spacevim.com/"
   echo " |  | DOOM Emacs By The DOOM Emacs Team On Github : https://github.com/doomemacs/doomemacs/"
   echo " |"
+  echo " | AwesomeCopycats By lcpz on Github : https://github.com/lcpz/awesome-copycats"
+  echo " |"
   echo " | Thx you alot without all of you this project wouldn't exist <3"
   echo " |"
 elif [ "$1" == "help" ] ; then

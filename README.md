@@ -48,6 +48,15 @@ reboot
 
 ---
 
+## Repos
+
+the dotfiles is split into three parts
+1. [pixelfiles-desktop](https://github.com/mohannadk28/pixelfiles-desktop): The Desktop Division
+2. [pixelfiles-term](https://github.com/mohannadk28/pixelfiles-term): The Terminal Division
+3. [pixelfiles-apps](https://github.com/mohannadk28/pixelfiles-apps): The Application Configs Division 
+
+---
+
 ## Credits
 
 There are alooot of Credits and I am to lazy to type them again :/
