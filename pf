@@ -4,13 +4,48 @@
 mkdir -p "$HOME"/.pixelfiles
 PFDIR="$HOME"/.pixelfiles
 
+help() {
+  echo "PFInstall"
+  echo " |"
+  echo " | Version        : 1.0"
+  echo " | Author         : Mohannadk28"
+  echo " | Author Profile : https://github.com/Mohannadk28/"
+  echo " | Repo           : https://github.com/Mohannadk28/pixelfiles/"
+  echo " |  |"
+  echo " |  | Desktop      : https://github.com/Mohannadk28/pixelfiles/pixelfiles-desktop"
+  echo " |  | Terminal     : https://github.com/Mohannadk28/pixelfiles/pixelfiles-term"
+  echo " |  | Applications : https://github.com/Mohannadk28/pixelfiles/pixelfiles-apps"
+  echo " | "
+  echo " | Commands"
+  echo " |  |"
+  echo " |  | Structrue"
+  echo " |  |  | pf [Option] [InitSystem]"
+  echo " |  |"
+  echo " |  | Options"
+  echo " |  |  | all       : installs all the pixelfiles repos"
+  echo " |  |  | term      : installs only the terminal related repo"
+  echo " |  |  | nodesktop : installs all the repos except the Window Manager Related Repo (For Users for DEs Like KDE, Gnome or XFCE)"
+  echo " |  |  | credits   : Credit where Credit is due"
+}
+
 if [ "$1" == "all" ] ; then 
     # Install All Packages
-    sudo pacman -S shotgun hacksaw wget mpv feh ttf-ubuntumono-nerd ttf-ubuntu-font-family unzip awesome polkit-gnome sddm rofi kitty thunar brightnessctl picom volumeicon cbatticon network-manager-applet slock starship exa bat zsh neovim firefox android-file-transfer
+    sudo pacman -S shotgun hacksaw wget mpv feh ttf-ubuntumono-nerd ttf-ubuntu-font-family kvantum conky unzip awesome polkit-gnome rofi kitty thunar brightnessctl picom volumeicon cbatticon noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk network-manager-applet slock starship exa bat zsh neovim firefox android-file-transfer
     
     # Enable sddm
-    sudo systemctl enable sddm
-    
+    if [ "$2" == "systemd"] ; then
+      sudo pacman -S sddm
+      sudo systemctl enable sddm
+    elif [ "$2" == "openrc" ] ; then
+      sudo pacman -S sddm sddm-openrc
+      sudo rc-update add xdm default 
+      vi /etc/conf.d/xdm
+      sudo openrc
+    else
+      sudo pacman -S sddm
+      sudo systemctl enable sddm
+    fi
+
     # Cloning Pixelfiles 
     git clone --recurse-submodules --remote-submodules https://github.com/Mohannadk28/pixelfiles-apps "$PFDIR"/pixelfiles-apps
     git clone --recurse-submodules --remote-submodules https://github.com/Mohannadk28/pixelfiles-term "$PFDIR"/pixelfiles-term
@@ -35,6 +70,11 @@ if [ "$1" == "all" ] ; then
     wget https://github.com/EliverLara/Nordic/releases/download/v2.2.0/Nordic-bluish-accent-standard-buttons-v40.tar.xz
     tar -xf  Nordic-bluish-accent-standard-buttons-v40.tar.xz
     rm -rf  Nordic-bluish-accent-standard-buttons-v40.tar.xz
+
+    # Install MateriaNordDark
+    git clone https://github.com/tonyfettes/materia-nord-kvantum.git /tmp/materia-nord-kvantum 
+    sudo mv /tmp/materia-nord-kvantum/Kvantum/MateriaNordDark /usr/share/Kvantum
+    rm -rf /tmp/materia-nord-kvantum
 elif [ "$1" == "term" ] ; then
     # Install Shell Packages
     sudo pacman -Syu
@@ -48,4 +88,86 @@ elif [ "$1" == "term" ] ; then
 
     # Setting up the Pixelfiles
     bash "$PFDIR"/pixelfiles-term/setup-term.sh
+elif [ "$1" == "nodesktop" ] ; then
+  # Install Packages
+  sudo pacman -Syu
+  sudo pacman -S wget unzip zsh starship exa bat ttf-ubuntumono-nerd neovim 
+
+  git clone --recurse-submodules --remote-submodules https://github.com/Mohannadk28/pixelfiles-apps "$PFDIR"/pixelfiles-apps
+  git clone --recurse-submodules --remote-submodules https://github.com/Mohannadk28/pixelfiles-term "$PFDIR"/pixelfiles-term
+  
+  chmod +x "$PFDIR"/pixelfiles-apps/setup-apps.sh
+  chmod +x "$PFDIR"/pixelfiles-term/setup-term.sh
+
+  bash "$PFDIR"/pixelfiles-apps/setup-apps.sh
+  bash "$PFDIR"/pixelfiles-term/setup-term.sh
+  
+  wget -qO- https://git.io/papirus-icon-theme-install | sh
+
+  # Install the Nordic-GTK Theme
+  mkdir -p "$HOME"/.themes
+  cd "$HOME"/.themes || return
+  wget https://github.com/EliverLara/Nordic/releases/download/v2.2.0/Nordic-bluish-accent-standard-buttons-v40.tar.xz
+  tar -xf  Nordic-bluish-accent-standard-buttons-v40.tar.xz
+  rm -rf  Nordic-bluish-accent-standard-buttons-v40.tar.xz
+elif [ "$1" == "credits" ] ; then
+  echo "Credits"
+  echo " | "
+  echo " | Programs Credits"
+  echo " |  |"
+  echo " |  | AwesomeWM By the AwesomeWM Team              : https://awesomewm.org/"
+  echo " |  | Rofi By davatorium on Github                 : https://github.com/davatorium/rofi/"
+  echo " |  | Kitty By kovidgoyal                          : https://sw.kovidgoyal.net/kitty/"
+  echo " |  | Shotgun By neXromancers                      : https://github.com/neXromancers/shotgun/"
+  echo " |  | Hacksaw By neXromancers                      : https://github.com/neXromancers/hacksaw/"
+  echo " |  | MPV By The mpv-player Team                   : https://mpv.io/"
+  echo " |  | Feh By Daniel Friesel                        : https://feh.finalrewind.org/"
+  echo " |  | Firefox By Mozilla                           : https://firefox.com/"
+  echo " |  | Neovim By The Neovim Team on Github          : https://github.com/neovim/neovim/"
+  echo " |  | ZSH By The ZSH Team                          : https://zsh.org/"
+  echo " |  | Bat By sharkdp on Github                     : https://github.com/sharkdp/bat/"
+  echo " |  | EXA By ogham on Github                       : https://exa.website/"
+  echo " |  | Starship By The Starship Team                : https://starship.rs/"
+  echo " |  | Slock By The Suckless Team                   : https://tools.suckless.org/slock/"
+  echo " |  | cbatticon By valr on Github                  : https://github.com/valr/cbatticon/"
+  echo " |  | volumeicon By Matto on Github                : https://github.com/Maato/volumeicon/"
+  echo " |  | Picom By yshui on Github                     : https://github.com/yshui/picom/"
+  echo " |  | Brightnessctl By Hummer12007 on Github       : https://github.com/Hummer12007/brightnessctl/"
+  echo " |  | Thunar By The XFCE Team                      : https://docs.xfce.org/xfce/thunar/start/"
+  echo " |  | Gnome Policy Kit By The Gnome Team on Gitlab : https://gitlab.gnome.org/Archive/policykit-gnome/"
+  echo " |  | nm-applet By The Gnome Team on Gitlab        : https://gitlab.gnome.org/GNOME/network-manager-applet/"
+  echo " |  | GIMP By The GIMP Team                        : https://www.gimp.org/"
+  echo " |  | Aseprite By The Aseprite Team                : https://www.aseprite.org/"
+  echo " |  | SDDM By The SDDM Team                        : https://github.com/sddm/sddm/"
+  echo " |  | Conky By brndnmtthws on Github               : https://github.com/brndnmtthws/conky/"
+  echo " |  | Kvantum By tsujan on Github                  : https://github.com/tsujan/Kvantum/"
+  echo " |  | Lxappearance By The LXDE Team on Github      : https://github.com/lxde/lxappearance/"
+  echo " |"
+  echo " | Font Credits"
+  echo " |  | "
+  echo " |  | Noto Font By Google      : https://fonts.google.com/noto/"
+  echo " |  | Ubuntu Font By Canonical : https://design.ubuntu.com/font/"
+  echo " |  | Nerd-Fonts By ryanoasis  : https://www.nerdfonts.com/"
+  echo " | "
+  echo " | Theme Credits"
+  echo " |  | Nordic GTK By EliverLara on Github                         : https://github.com/EliverLara/Nordic/"
+  echo " |  | MateriaNordDark By tonyfettes on Github                    : https://github.com/tonyfettes/materia-nord-kvantum/"
+  echo " |  | Papirus Icon Theme By The PapirusDevelopmentTeam on Github : https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/"
+  echo " |  | Nord Theme For Zathura By gdnand on Github                 : https://github.com/gdnand/zathura-nord/"
+  echo " |  | Nord Theme For Aseprite By marsn3 on Github                : https://github.com/marsn3/aseprite-nord/"
+  echo " |  | Nord Theme For Qutebrowser By Linuus on Github             : https://github.com/Linuus/nord-qutebrowser/"
+  echo " |  | Nord Rofi Theme By amayer5125 on Github                    : https://github.com/amayer5125/nord-rofi/"
+  echo " |  | Nord Kitty Theme By connorholyday on Github                : https://github.com/connorholyday/nord-kitty/"
+  echo " |  | Nord Conky Theme By dwt1 (DistroTube) on Gitlab            : https://gitlab.com/dwt1/dotfiles/-/blob/master/.config/conky/awesome/nord-01.conkyrc/"
+  echo " |"
+  echo " | Editor Distros Credits"
+  echo " |  | SpaceVim By The SpaceVim Team               : https://spacevim.com/"
+  echo " |  | DOOM Emacs By The DOOM Emacs Team On Github : https://github.com/doomemacs/doomemacs/"
+  echo " |"
+  echo " | Thx you alot without all of you this project wouldn't exist <3"
+  echo " |"
+elif [ "$1" == "help" ] ; then
+  help
+else
+  help
 fi
