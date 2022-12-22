@@ -8,7 +8,6 @@ my dotfiles :D
 1. a Nordic Theme for The Window Manager and most Apps
 2. a nice keyboard Driven Experiance
 3. a beautiful ZSH Terminal
-4. a Light System Fingerprint
 
 ---
 
