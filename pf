@@ -30,7 +30,7 @@ help() {
 
 if [ "$1" == "all" ] ; then 
     # Install All Packages
-    sudo pacman -S shotgun hacksaw wget mpv feh ttf-ubuntumono-nerd ttf-ubuntu-font-family kvantum conky unzip awesome polkit-gnome rofi kitty thunar brightnessctl picom volumeicon cbatticon noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk network-manager-applet slock starship exa bat zsh neovim firefox android-file-transfer
+    sudo pacman -S shotgun qutebrowser ranger blanket hacksaw wget mpv feh ttf-ubuntumono-nerd ttf-ubuntu-font-family kvantum conky unzip awesome polkit-gnome rofi kitty thunar brightnessctl picom volumeicon cbatticon noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk network-manager-applet slock starship exa bat zsh neovim firefox android-file-transfer
     
     # Enable sddm
     if [ "$2" == "systemd"] ; then
@@ -38,8 +38,7 @@ if [ "$1" == "all" ] ; then
       sudo systemctl enable sddm
     elif [ "$2" == "openrc" ] ; then
       sudo pacman -S sddm sddm-openrc
-      sudo rc-update add xdm default 
-      vi /etc/conf.d/xdm
+      sudo rc-update add sddm default 
       sudo openrc
     else
       sudo pacman -S sddm
@@ -113,36 +112,6 @@ elif [ "$1" == "nodesktop" ] ; then
 elif [ "$1" == "credits" ] ; then
   echo "Credits"
   echo " | "
-  echo " | Programs Credits"
-  echo " |  |"
-  echo " |  | AwesomeWM By the AwesomeWM Team              : https://awesomewm.org/"
-  echo " |  | Rofi By davatorium on Github                 : https://github.com/davatorium/rofi/"
-  echo " |  | Kitty By kovidgoyal                          : https://sw.kovidgoyal.net/kitty/"
-  echo " |  | Shotgun By neXromancers                      : https://github.com/neXromancers/shotgun/"
-  echo " |  | Hacksaw By neXromancers                      : https://github.com/neXromancers/hacksaw/"
-  echo " |  | MPV By The mpv-player Team                   : https://mpv.io/"
-  echo " |  | Feh By Daniel Friesel                        : https://feh.finalrewind.org/"
-  echo " |  | Firefox By Mozilla                           : https://firefox.com/"
-  echo " |  | Neovim By The Neovim Team on Github          : https://github.com/neovim/neovim/"
-  echo " |  | ZSH By The ZSH Team                          : https://zsh.org/"
-  echo " |  | Bat By sharkdp on Github                     : https://github.com/sharkdp/bat/"
-  echo " |  | EXA By ogham on Github                       : https://exa.website/"
-  echo " |  | Starship By The Starship Team                : https://starship.rs/"
-  echo " |  | Slock By The Suckless Team                   : https://tools.suckless.org/slock/"
-  echo " |  | cbatticon By valr on Github                  : https://github.com/valr/cbatticon/"
-  echo " |  | volumeicon By Matto on Github                : https://github.com/Maato/volumeicon/"
-  echo " |  | Picom By yshui on Github                     : https://github.com/yshui/picom/"
-  echo " |  | Brightnessctl By Hummer12007 on Github       : https://github.com/Hummer12007/brightnessctl/"
-  echo " |  | Thunar By The XFCE Team                      : https://docs.xfce.org/xfce/thunar/start/"
-  echo " |  | Gnome Policy Kit By The Gnome Team on Gitlab : https://gitlab.gnome.org/Archive/policykit-gnome/"
-  echo " |  | nm-applet By The Gnome Team on Gitlab        : https://gitlab.gnome.org/GNOME/network-manager-applet/"
-  echo " |  | GIMP By The GIMP Team                        : https://www.gimp.org/"
-  echo " |  | Aseprite By The Aseprite Team                : https://www.aseprite.org/"
-  echo " |  | SDDM By The SDDM Team                        : https://github.com/sddm/sddm/"
-  echo " |  | Conky By brndnmtthws on Github               : https://github.com/brndnmtthws/conky/"
-  echo " |  | Kvantum By tsujan on Github                  : https://github.com/tsujan/Kvantum/"
-  echo " |  | Lxappearance By The LXDE Team on Github      : https://github.com/lxde/lxappearance/"
-  echo " |"
   echo " | Font Credits"
   echo " |  | "
   echo " |  | Noto Font By Google      : https://fonts.google.com/noto/"
